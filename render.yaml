@@ -44,3 +44,4 @@ services:
           name: spedizionefacile-api
           type: web
           property: hostport
+

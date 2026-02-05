@@ -19,10 +19,9 @@ Questo repository contiene:
    - Render creerà automaticamente un’anteprima per ogni Pull Request.
 
 3. **Verifica le variabili d’ambiente**  
-	- Il frontend usa la variabile `NUXT_PUBLIC_API_BASE` per raggiungere l’API Laravel.
-	- In `render.yaml` il valore proviene da `fromService: hostport`; Nuxt aggiunge automaticamente `https://` se manca lo schema.
-	- Nel backend imposta le variabili minime (es. `APP_ENV`, `APP_KEY`, `APP_URL`, `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
-	- Per ogni servizio, apri la sezione *Environment* in UI e controlla che i valori siano presenti.
+   - Il frontend usa la variabile `NUXT_PUBLIC_API_BASE` per raggiungere l’API Laravel.
+   - Nel backend imposta le variabili minime (es. `APP_ENV`, `APP_KEY`, `APP_URL`, `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
+   - Per ogni servizio, apri la sezione *Environment* in UI e controlla che i valori siano presenti.
 
 4. **Database di anteprima**  
    - La Blueprint crea un database dedicato alle anteprime.
