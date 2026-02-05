@@ -2,10 +2,19 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WalletController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::prefix('wallet')->group(function () {
+    Route::get('/balance', [WalletController::class, 'balance']);
+    Route::get('/movements', [WalletController::class, 'movements']);
+    Route::post('/top-up', [WalletController::class, 'topUp']);
+    Route::post('/payment', [WalletController::class, 'payment']);
+    Route::post('/payment-confirmation', [WalletController::class, 'confirmPayment']);
+});
 
 /* Route::middleware(['auth:sanctum'])->get('/me', [MeController::class]);
  */
@@ -20,7 +29,6 @@ Route::middleware(['auth:sanctum'])->post('/logout', [TokenAuthenticationControl
 /* ================= Recupera password ================= */
 /* Route::post('/forgot-password', [PasswordResetRequestController::class, 'sendEmail']);
 Route::post('/update-password', [ChangePasswordController::class, 'passwordResetProcess']); */
-
 
 
 
