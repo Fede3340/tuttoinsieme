@@ -36,11 +36,11 @@ export default defineNuxtConfig({
 	modules: ["@nuxt/image", "@nuxt/icon", "nuxt-auth-sanctum", "@pinia/nuxt", "@nuxt/ui", "@nuxt/fonts"],
 	runtimeConfig: {
 		public: {
-			apiBase: "http://localhost:8000",
+			apiBase: process.env.NUXT_PUBLIC_API_BASE ?? "http://localhost:8000",
 		},
 	},
 	sanctum: {
-		baseUrl: "http://localhost:8000", // URL del tuo backend Laravel
+		baseUrl: process.env.NUXT_PUBLIC_API_BASE ?? "http://localhost:8000", // URL del tuo backend Laravel
 		mode: "cookie",
 		/* userStateKey: "sanctum.user.identity", */
 		redirect: {
