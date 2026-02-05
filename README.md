@@ -15,6 +15,7 @@ Questo repository contiene:
 
 2. **Abilita le anteprime per le richieste di unione**  
    - Nella dashboard del servizio backend e frontend, assicurati che la voce *Preview Environments* sia attiva.
+   - La voce *Preview Environments* si abilita da UI: Render non accetta il campo `previewsEnabled` nel `render.yaml`.
    - Render creerà automaticamente un’anteprima per ogni Pull Request.
 
 3. **Verifica le variabili d’ambiente**  
