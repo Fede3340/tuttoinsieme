@@ -5,6 +5,20 @@ Questo repository contiene:
 - **Backend Laravel** in `laravel-spedizionefacile-main`
 - **Frontend Nuxt** in `nuxt-spedizionefacile-master`
 
+## Avvio con GitHub Codespaces (solo UI, senza terminale)
+
+1. **Crea un Codespace**  
+   - Vai su GitHub → *Code* → *Codespaces* → *Create codespace on main*.
+
+2. **Attendi la configurazione automatica**  
+   - Il setup installa le dipendenze di Laravel e Nuxt e avvia entrambi i server.
+
+3. **Apri il sito**  
+   - Quando le porte sono pronte, GitHub mostrerà un link per la porta **3000** (Nuxt).
+
+4. **Backend collegato**  
+   - Il frontend legge l’API da `NUXT_PUBLIC_API_BASE`, già configurata nel Codespace per puntare alla porta **8000**.
+   - Se serve, puoi cambiare `NUXT_PUBLIC_API_BASE` dal pannello *Environment* del Codespace (UI).
 ## Anteprime automatiche su Render (solo via interfaccia web)
 
 > Tutti i passaggi qui sotto sono eseguibili dalla UI di Render, senza terminale.
