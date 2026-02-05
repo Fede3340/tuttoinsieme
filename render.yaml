@@ -1,3 +1,6 @@
+previews:
+  generation: automatic
+
 services:
   - type: web
     name: spedizionefacile-api
@@ -6,10 +9,6 @@ services:
     rootDir: laravel-spedizionefacile-main
     dockerfilePath: ./Dockerfile
     autoDeploy: true
-codex/locate-front-end-and-back-end-code-q3pzoc
-
-    previewsEnabled: true
-main
     buildFilter:
       paths:
         - laravel-spedizionefacile-main/**
@@ -36,10 +35,6 @@ main
     buildCommand: npm install && npm run build
     startCommand: node .output/server/index.mjs
     autoDeploy: true
-codex/locate-front-end-and-back-end-code-q3pzoc
-
-    previewsEnabled: true
-main
     buildFilter:
       paths:
         - nuxt-spedizionefacile-master/**
