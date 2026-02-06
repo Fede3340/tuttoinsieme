@@ -20,28 +20,6 @@ if [[ -f "${ROOT_DIR}/laravel-spedizionefacile-main/composer.json" ]]; then
   fi
 fi
 
-if [[ -f "${ROOT_DIR}/laravel-spedizionefacile-main/.env.example" && ! -f "${ROOT_DIR}/laravel-spedizionefacile-main/.env" ]]; then
-  cp "${ROOT_DIR}/laravel-spedizionefacile-main/.env.example" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-fi
-
-if [[ -f "${ROOT_DIR}/laravel-spedizionefacile-main/.env" ]]; then
-  DB_PATH="${ROOT_DIR}/laravel-spedizionefacile-main/database/database.sqlite"
-  touch "${DB_PATH}"
-  if grep -q "^DB_CONNECTION=" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"; then
-    sed -i "s|^DB_CONNECTION=.*|DB_CONNECTION=sqlite|" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-  else
-    echo "DB_CONNECTION=sqlite" >> "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-  fi
-  if grep -q "^DB_DATABASE=" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"; then
-    sed -i "s|^DB_DATABASE=.*|DB_DATABASE=${DB_PATH}|" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-  else
-    echo "DB_DATABASE=${DB_PATH}" >> "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-  fi
-  if ! grep -q "^APP_KEY=" "${ROOT_DIR}/laravel-spedizionefacile-main/.env" || grep -q "^APP_KEY=$" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"; then
-    (cd "${ROOT_DIR}/laravel-spedizionefacile-main" && php artisan key:generate --force)
-  fi
-fi
-
 if [[ -f "${ROOT_DIR}/nuxt-spedizionefacile-master/package.json" ]]; then
   if [[ ! -d "${ROOT_DIR}/nuxt-spedizionefacile-master/node_modules" ]]; then
     (cd "${ROOT_DIR}/nuxt-spedizionefacile-master" && npm install)

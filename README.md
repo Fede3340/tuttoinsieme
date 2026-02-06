@@ -5,19 +5,30 @@ Questo repository contiene:
 - **Backend Laravel** in `laravel-spedizionefacile-main`
 - **Frontend Nuxt** in `nuxt-spedizionefacile-master`
 
-## Avvio con GitHub Codespaces (solo UI, senza terminale)
+## Anteprime automatiche su Render (solo via interfaccia web)
 
-1. **Crea un Codespace**  
-   - Vai su GitHub → *Code* → *Codespaces* → *Create codespace on main*.
+> Tutti i passaggi qui sotto sono eseguibili dalla UI di Render, senza terminale.
 
-2. **Attendi la configurazione automatica**  
-   - Lo script `scripts/avvia-tutto.sh` installa le dipendenze mancanti e avvia Laravel (8000) e Nuxt (3000).
+1. **Crea un nuovo Blueprint**  
+   - Vai su Render → *New* → *Blueprint* e collega questo repository.
+   - Render rileverà automaticamente il file `render.yaml` in radice.
 
-3. **Apri il sito**  
-   - Apri il link della porta **3000** dalla scheda *Ports* del Codespace.
+2. **Abilita le anteprime per le richieste di unione**  
+   - Nella dashboard del servizio backend e frontend, assicurati che la voce *Preview Environments* sia attiva.
+   - Render non accetta `previewsEnabled` nei servizi: usa `previews.generation` a livello radice del `render.yaml`.
+   - Render creerà automaticamente un’anteprima per ogni Pull Request.
 
-4. **Backend collegato automaticamente**  
-   - `NUXT_PUBLIC_API_BASE` viene costruita usando `CODESPACE_NAME` e `GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN`, così il frontend usa l’URL pubblico della porta 8000.
+3. **Verifica le variabili d’ambiente**  
+   - Il frontend usa la variabile `NUXT_PUBLIC_API_BASE` per raggiungere l’API Laravel.
+   - Nel backend imposta le variabili minime (es. `APP_ENV`, `APP_KEY`, `APP_URL`, `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
+   - Per ogni servizio, apri la sezione *Environment* in UI e controlla che i valori siano presenti.
+
+4. **Database di anteprima**  
+   - La Blueprint crea un database dedicato alle anteprime.
+   - Controlla nella sezione *Databases* di Render che il database sia creato e collegato al backend.
+
+5. **Apri l’anteprima**  
+   - Apri una Pull Request e usa il link *Preview* generato da Render per visualizzare l’ultima versione.
 
 ## API Portafoglio (backend)
 
