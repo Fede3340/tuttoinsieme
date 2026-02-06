@@ -20,33 +20,9 @@ if [[ -f "${ROOT_DIR}/laravel-spedizionefacile-main/composer.json" ]]; then
   fi
 fi
 
-if [[ -f "${ROOT_DIR}/laravel-spedizionefacile-main/.env.example" && ! -f "${ROOT_DIR}/laravel-spedizionefacile-main/.env" ]]; then
-  cp "${ROOT_DIR}/laravel-spedizionefacile-main/.env.example" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-fi
-
-if [[ -f "${ROOT_DIR}/laravel-spedizionefacile-main/.env" ]]; then
-  DB_PATH="${ROOT_DIR}/laravel-spedizionefacile-main/database/database.sqlite"
-  touch "${DB_PATH}"
-  if grep -q "^DB_CONNECTION=" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"; then
-    sed -i "s|^DB_CONNECTION=.*|DB_CONNECTION=sqlite|" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-  else
-    echo "DB_CONNECTION=sqlite" >> "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-  fi
-  if grep -q "^DB_DATABASE=" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"; then
-    sed -i "s|^DB_DATABASE=.*|DB_DATABASE=${DB_PATH}|" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-  else
-    echo "DB_DATABASE=${DB_PATH}" >> "${ROOT_DIR}/laravel-spedizionefacile-main/.env"
-  fi
-  if ! grep -q "^APP_KEY=" "${ROOT_DIR}/laravel-spedizionefacile-main/.env" || grep -q "^APP_KEY=$" "${ROOT_DIR}/laravel-spedizionefacile-main/.env"; then
-    (cd "${ROOT_DIR}/laravel-spedizionefacile-main" && php artisan key:generate --force)
-  fi
-fi
-
 if [[ -f "${ROOT_DIR}/nuxt-spedizionefacile-master/package.json" ]]; then
   if [[ ! -d "${ROOT_DIR}/nuxt-spedizionefacile-master/node_modules" ]]; then
     (cd "${ROOT_DIR}/nuxt-spedizionefacile-master" && npm install)
-  else
-    (cd "${ROOT_DIR}/nuxt-spedizionefacile-master" && npm install --prefer-offline --no-audit >/tmp/nuxt-npm-install.log 2>&1 || true)
   fi
 fi
 
@@ -56,10 +32,6 @@ fi
 
 if ! pgrep -f "nuxt dev.*--port 3000" >/dev/null 2>&1; then
   (cd "${ROOT_DIR}/nuxt-spedizionefacile-master" && npm run dev -- --host 0.0.0.0 --port 3000 > /tmp/nuxt.log 2>&1 &)
-  sleep 4
-  if ! pgrep -f "nuxt dev.*--port 3000" >/dev/null 2>&1; then
-    (cd "${ROOT_DIR}/nuxt-spedizionefacile-master" && npx nuxi dev --host 0.0.0.0 --port 3000 >> /tmp/nuxt.log 2>&1 &)
-  fi
 fi
 
 echo "Backend: ${NUXT_PUBLIC_API_BASE}"
