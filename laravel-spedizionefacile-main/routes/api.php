@@ -3,16 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WalletController;
-use App\Http\Controllers\SessionController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-
-// Session routes
-Route::prefix('session')->group(function () {
-    Route::post('/first-step', [SessionController::class, 'firstStep'])->middleware('auth:sanctum');
-});
 
 Route::prefix('wallet')->group(function () {
     Route::get('/balance', [WalletController::class, 'balance']);

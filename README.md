@@ -5,30 +5,25 @@ Questo repository contiene:
 - **Backend Laravel** in `laravel-spedizionefacile-main`
 - **Frontend Nuxt** in `nuxt-spedizionefacile-master`
 
-## Anteprime automatiche su Render (solo via interfaccia web)
+## Avvio con GitHub Codespaces (solo UI, senza terminale)
 
-> Tutti i passaggi qui sotto sono eseguibili dalla UI di Render, senza terminale.
+1. **Crea un Codespace**  
+   - Vai su GitHub → *Code* → *Codespaces* → *Create codespace on main*.
 
-1. **Crea un nuovo Blueprint**  
-   - Vai su Render → *New* → *Blueprint* e collega questo repository.
-   - Render rileverà automaticamente il file `render.yaml` in radice.
+2. **Attendi la configurazione automatica**  
+   - Lo script `scripts/avvia-tutto.sh` installa le dipendenze mancanti e avvia Laravel (8000) e Nuxt (3000).
 
-2. **Abilita le anteprime per le richieste di unione**  
-   - Nella dashboard del servizio backend e frontend, assicurati che la voce *Preview Environments* sia attiva.
-   - Render non accetta `previewsEnabled` nei servizi: usa `previews.generation` a livello radice del `render.yaml`.
-   - Render creerà automaticamente un’anteprima per ogni Pull Request.
+3. **Apri il sito**  
+   - Apri il link della porta **3000** dalla scheda *Ports* del Codespace.
 
-3. **Verifica le variabili d’ambiente**  
-   - Il frontend usa la variabile `NUXT_PUBLIC_API_BASE` per raggiungere l’API Laravel.
-   - Nel backend imposta le variabili minime (es. `APP_ENV`, `APP_KEY`, `APP_URL`, `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
-   - Per ogni servizio, apri la sezione *Environment* in UI e controlla che i valori siano presenti.
+### Se vedi errore 502 sulla porta 3000
 
-4. **Database di anteprima**  
-   - La Blueprint crea un database dedicato alle anteprime.
-   - Controlla nella sezione *Databases* di Render che il database sia creato e collegato al backend.
+- Aspetta 20-40 secondi e ricarica la pagina: Nuxt può impiegare qualche secondo al primo avvio.
+- Se resta 502, dal Codespace usa **Command Palette → Codespaces: Rebuild Container** e riapri la porta **3000**.
+- Il backend API deve rispondere sulla porta **8000**; se 8000 è su e 3000 no, il problema è solo nel processo Nuxt e il rebuild lo riallinea.
 
-5. **Apri l’anteprima**  
-   - Apri una Pull Request e usa il link *Preview* generato da Render per visualizzare l’ultima versione.
+4. **Backend collegato automaticamente**  
+   - `NUXT_PUBLIC_API_BASE` viene costruita usando `CODESPACE_NAME` e `GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN`, così il frontend usa l’URL pubblico della porta 8000.
 
 ## API Portafoglio (backend)
 
@@ -41,3 +36,28 @@ Il backend espone gli endpoint seguenti (base URL = `NUXT_PUBLIC_API_BASE`):
 - `POST /api/wallet/payment-confirmation` → conferma pagamento tramite riferimento.
 
 La logica è idempotente: lo stesso `idempotency_key` non crea movimenti duplicati e il saldo deriva sempre dai movimenti confermati.
+
+## Soluzione definitiva con Cloudflare Tunnel (gratis)
+
+Se Codespaces termina i minuti o non vuoi usare Netlify/Render, puoi pubblicare **frontend e backend** con Cloudflare Tunnel.
+
+### Cosa fa questa soluzione
+
+- Usa `scripts/avvia-cloudflare.sh` per avviare Laravel (8000) e Nuxt (3000).
+- Crea due URL pubblici `trycloudflare.com`:
+  - uno per il backend API
+  - uno per il frontend sito
+- Imposta automaticamente `NUXT_PUBLIC_API_BASE` sul tunnel backend, così registrazione/login/form e chiamate API puntano all’URL giusto.
+
+### Passi rapidi (Codespaces)
+
+1. Apri Codespace sul branch aggiornato.
+2. Esegui script unico:
+   - `./scripts/avvia-cloudflare.sh`
+3. Copia il link mostrato come **Frontend pubblico** e aprilo.
+
+### Note importanti
+
+- Gli URL `trycloudflare.com` sono comodi e gratuiti, ma possono cambiare al riavvio.
+- Se vuoi URL stabili “per sempre”, crea un tunnel Cloudflare dal dashboard Zero Trust e associa due hostname (es. `app.tuodominio.it` e `api.tuodominio.it`) verso le porte 3000/8000.
+- Non inserire mai token o credenziali nel repository: usa variabili ambiente nel provider/ambiente di esecuzione.

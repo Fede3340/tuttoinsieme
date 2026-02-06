@@ -3,14 +3,19 @@
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "postCreateCommand": "bash -lc \"./scripts/avvia-tutto.sh\"",
   "postStartCommand": "bash -lc \"./scripts/avvia-tutto.sh\"",
-  "forwardPorts": [3000, 8000],
+  "forwardPorts": [
+    3000,
+    8000
+  ],
   "portsAttributes": {
     "3000": {
       "label": "Nuxt",
-      "onAutoForward": "openBrowser"
+      "onAutoForward": "openBrowser",
+      "visibility": "public"
     },
     "8000": {
-      "label": "Laravel"
+      "label": "Laravel",
+      "visibility": "public"
     }
   },
   "containerEnv": {}
