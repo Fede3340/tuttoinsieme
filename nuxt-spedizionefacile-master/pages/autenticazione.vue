@@ -90,6 +90,8 @@ definePageMeta({
 	middleware: ["sanctum:guest"],
 });
 
+const apiBase = useRuntimeConfig().public.apiBase;
+
 const registerForm = ref({
 	name: "Valee",
 	surname: "Chicco",
@@ -144,7 +146,7 @@ const showForm = ref(false);
 
 const loginGoogle = () => {
 	isGoogle.value = true;
-	window.location.href = "http://localhost:8000/api/auth/google/redirect";
+	window.location.href = `${apiBase}/api/auth/google/redirect`;
 };
 
 function onTabClick(newValue) {

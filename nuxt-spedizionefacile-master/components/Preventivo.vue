@@ -463,21 +463,21 @@ watch(
 					<div
 						class="bg-[#E44203] w-full text-white font-semibold text-center mt-[32px] desktop-xl:mt-[88px] rounded-[50px] desktop:mt-0 tracking-[-0.48px]"
 						:class="{ 'text-[1.875rem] h-[80px]': !isRateCalculated, ' h-[113px]': isRateCalculated }">
-						<button
-							type="button"
-							@click="calculateRate"
-							v-if="!isRateCalculated && status === 'success'"
-							class="w-full h-full rounded-[50px] cursor-pointer after:content-[''] after:bg-[url(/img/arrow-down.svg)] after:inline-block after:size-[16px] text-[1.875rem] after:ml-[10px] after:scale-200">
-							Continua
-						</button>
+							<button
+								type="button"
+								@click="calculateRate"
+								v-if="!isRateCalculated"
+								class="w-full h-full rounded-[50px] cursor-pointer after:content-[''] after:bg-[url(/img/arrow-down.svg)] after:inline-block after:size-[16px] text-[1.875rem] after:ml-[10px] after:scale-200">
+								Continua
+							</button>
 
-						<NuxtLink
-							to="la-tua-spedizione/2"
-							v-if="isRateCalculated && status === 'success'"
-							class="rounded-[50px] after:content-[''] after:bg-[url(/img/arrow-down.svg)] after:inline-block after:size-[16px] h-[113px] after:scale-300 after:ml-[35px] flex items-center justify-center">
-							<span>
-								<span class="text-[2.25rem] border-b-[1px] border-white pb-[4px]">Spedisci da {{ session?.data?.total_price }}€</span>
-								<span class="block text-right mr-[5px] mt-[5px]">IVA inclusa</span>
+							<NuxtLink
+								to="/la-tua-spedizione/2"
+								v-if="isRateCalculated"
+								class="rounded-[50px] after:content-[''] after:bg-[url(/img/arrow-down.svg)] after:inline-block after:size-[16px] h-[113px] after:scale-300 after:ml-[35px] flex items-center justify-center">
+								<span>
+									<span class="text-[2.25rem] border-b-[1px] border-white pb-[4px]">Spedisci da {{ session?.data?.total_price }}€</span>
+									<span class="block text-right mr-[5px] mt-[5px]">IVA inclusa</span>
 							</span>
 						</NuxtLink>
 
