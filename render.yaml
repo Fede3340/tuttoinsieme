@@ -26,6 +26,26 @@ services:
         value: stderr
       - key: DB_CONNECTION
         value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: spedizionefacile-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: spedizionefacile-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: spedizionefacile-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: spedizionefacile-db
+          property: username
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: spedizionefacile-db
+          property: password
 
   - type: web
     name: spedizionefacile-web
@@ -40,6 +60,13 @@ services:
         - nuxt-spedizionefacile-master/**
     envVars:
       - key: NUXT_PUBLIC_API_BASE
+
+        databases:
+          - name: spedizionefacile-db
+            databaseName: spedizionefacile
+            user: spedizionefacile
+            plan: free
+            region: ohio
         fromService:
           name: spedizionefacile-api
           type: web

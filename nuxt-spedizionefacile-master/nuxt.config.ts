@@ -43,14 +43,6 @@ export default defineNuxtConfig({
 		},
 	},
 	sanctum: {
-		baseUrl: (() => {
-			const raw = process.env.NUXT_PUBLIC_API_BASE ?? "http://localhost:8000";
-			return raw.startsWith("http://") || raw.startsWith("https://") ? raw : `https://${raw}`;
-		})(), // URL del tuo backend Laravel
-			apiBase: process.env.NUXT_PUBLIC_API_BASE ?? "http://localhost:8000",
-		},
-	},
-	sanctum: {
 		baseUrl: process.env.NUXT_PUBLIC_API_BASE ?? "http://localhost:8000", // URL del tuo backend Laravel
 		mode: "cookie",
 		/* userStateKey: "sanctum.user.identity", */
