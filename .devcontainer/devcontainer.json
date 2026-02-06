@@ -1,0 +1,17 @@
+{
+  "name": "tuttoinsieme",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "postCreateCommand": "bash -lc \"./scripts/avvia-tutto.sh\"",
+  "postStartCommand": "bash -lc \"./scripts/avvia-tutto.sh\"",
+  "forwardPorts": [3000, 8000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Nuxt",
+      "onAutoForward": "openBrowser"
+    },
+    "8000": {
+      "label": "Laravel"
+    }
+  },
+  "containerEnv": {}
+}
