@@ -61,3 +61,45 @@ Se Codespaces termina i minuti o non vuoi usare Netlify/Render, puoi pubblicare 
 - Gli URL `trycloudflare.com` sono comodi e gratuiti, ma possono cambiare al riavvio.
 - Se vuoi URL stabili “per sempre”, crea un tunnel Cloudflare dal dashboard Zero Trust e associa due hostname (es. `app.tuodominio.it` e `api.tuodominio.it`) verso le porte 3000/8000.
 - Non inserire mai token o credenziali nel repository: usa variabili ambiente nel provider/ambiente di esecuzione.
+
+
+### Diagnostica automatica (quando non si connette)
+
+Se usi Cloudflare Tunnel, `http://127.0.0.1:8787` può essere la porta metrics di `cloudflared`; se invece usi Caddy locale, `8787` è il sito principale.
+
+Esegui questo comando unico per raccogliere tutto lo stato in automatico:
+
+```bash
+./scripts/raccogli-stato.sh
+```
+
+Il comando crea `tmp-diagnostica/report.txt`: incolla quel file e possiamo capire subito dove si blocca (frontend, backend o tunnel) senza altri passaggi manuali.
+
+
+## Avvio locale consigliato (Caddy su 8787)
+
+Se stai già vedendo il sito su `http://127.0.0.1:8787`, questa è la modalità corretta: origine unica per frontend + API.
+
+1. Avvio automatico completo:
+
+```bash
+./scripts/avvia-locale.sh
+```
+
+2. Apri il sito:
+
+- `http://127.0.0.1:8787`
+
+Lo script avvia Nuxt (3000), Laravel (8000) e Caddy (8787) se disponibile.
+
+### Bundle automatico di supporto (Windows)
+
+Per condividere tutto in un colpo solo (config + log + check HTTP), esegui in PowerShell:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\support-bundle.ps1
+```
+
+Output atteso: `OK: creato ...support_bundle_*.zip`
+
+> Nota sicurezza: il bundle copia solo file di configurazione di esempio (`.env.example`), non i tuoi `.env` reali.
