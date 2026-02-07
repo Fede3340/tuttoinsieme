@@ -2,6 +2,21 @@
 
 import tailwindcss from "@tailwindcss/vite";
 
+const resolveApiBase = (): string => {
+	const raw = process.env.NUXT_PUBLIC_API_BASE ?? "";
+	if (!raw) {
+		return "http://127.0.0.1:8787";
+	}
+
+	if (raw.startsWith("http://") || raw.startsWith("https://")) {
+		return raw;
+	}
+
+	return "https://" + raw;
+};
+
+const apiBase = resolveApiBase();
+
 export default defineNuxtConfig({
 	compatibilityDate: "2025-05-15",
 	devtools: { enabled: true },
@@ -36,11 +51,11 @@ export default defineNuxtConfig({
 	modules: ["@nuxt/image", "@nuxt/icon", "nuxt-auth-sanctum", "@pinia/nuxt", "@nuxt/ui", "@nuxt/fonts"],
 	runtimeConfig: {
 		public: {
-			apiBase: "http://localhost:8000",
+			apiBase,
 		},
 	},
 	sanctum: {
-		baseUrl: "http://localhost:8000", // URL del tuo backend Laravel
+		baseUrl: apiBase,
 		mode: "cookie",
 		/* userStateKey: "sanctum.user.identity", */
 		redirect: {

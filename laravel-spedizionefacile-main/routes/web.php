@@ -19,6 +19,7 @@ use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\StripeConnectController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\CustomRegisterController;
 use App\Http\Controllers\PasswordResetRequestController;
@@ -59,6 +60,10 @@ Route::group(['prefix' => 'api'], function() {
     /* RECUPERO E MODIFICA PASSWORD */
     Route::post('/forgot-password', [PasswordResetRequestController::class, 'sendEmail']);
     Route::post('/update-password', [ChangePasswordController::class, 'passwordResetProcess']);
+
+
+    Route::get('/session', [SessionController::class, 'show']);
+    Route::post('/session/first-step', [SessionController::class, 'firstStep']);
 
     /* COLLI E INDIRIZZI PARTENZA E DESTINAZIONE INSIEME */
     /* Route::apiResource('shipments', ShipmentController::class); */
