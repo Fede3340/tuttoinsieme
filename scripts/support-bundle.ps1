@@ -29,11 +29,11 @@ $filesToCopy = @(
     (Join-Path $root 'laravel-spedizionefacile-main\.env.example'),
     (Join-Path $root 'laravel-spedizionefacile-main\routes\web.php'),
     (Join-Path $root 'laravel-spedizionefacile-main\routes\api.php'),
-    'C:\\tmp\\nuxt.log',
-    'C:\\tmp\\laravel.log',
-    'C:\\tmp\\caddy.log',
-    'C:\\tmp\\cloudflared-backend.log',
-    'C:\\tmp\\cloudflared-frontend.log'
+    (Join-Path $env:TEMP 'nuxt.log'),
+    (Join-Path $env:TEMP 'laravel.log'),
+    (Join-Path $env:TEMP 'caddy.log'),
+    (Join-Path $env:TEMP 'cloudflared-backend.log'),
+    (Join-Path $env:TEMP 'cloudflared-frontend.log')
 )
 
 foreach ($path in $filesToCopy) {

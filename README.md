@@ -43,7 +43,7 @@ Se Codespaces termina i minuti o non vuoi usare Netlify/Render, puoi pubblicare 
 
 ### Cosa fa questa soluzione
 
-- Usa `scripts/avvia-cloudflare.sh` per avviare Laravel (8000) e Nuxt (3000).
+- Usa `scripts/avvia-cloudflare.ps1` (Windows PowerShell) per avviare Laravel (8000) e Nuxt (3000).
 - Crea due URL pubblici `trycloudflare.com`:
   - uno per il backend API
   - uno per il frontend sito
@@ -53,7 +53,7 @@ Se Codespaces termina i minuti o non vuoi usare Netlify/Render, puoi pubblicare 
 
 1. Apri Codespace sul branch aggiornato.
 2. Esegui script unico:
-   - `./scripts/avvia-cloudflare.sh`
+   - `powershell -ExecutionPolicy Bypass -File .\scripts\avvia-cloudflare.ps1`
 3. Copia il link mostrato come **Frontend pubblico** e aprilo.
 
 ### Note importanti
@@ -69,8 +69,8 @@ Se usi Cloudflare Tunnel, `http://127.0.0.1:8787` può essere la porta metrics d
 
 Esegui questo comando unico per raccogliere tutto lo stato in automatico:
 
-```bash
-./scripts/raccogli-stato.sh
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\raccogli-stato.ps1
 ```
 
 Il comando crea `tmp-diagnostica/report.txt`: incolla quel file e possiamo capire subito dove si blocca (frontend, backend o tunnel) senza altri passaggi manuali.
@@ -83,7 +83,7 @@ Se stai già vedendo il sito su `http://127.0.0.1:8787`, questa è la modalità 
 1. Avvio automatico completo:
 
 ```bash
-./scripts/avvia-locale.sh
+powershell -ExecutionPolicy Bypass -File .\scripts\avvia-locale.ps1
 ```
 
 2. Apri il sito:
